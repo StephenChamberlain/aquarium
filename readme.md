@@ -14,6 +14,8 @@ The low level stuff, circuit information, physical assets.
 
 ### Backend
 Database, server, API.
+- Install peewee, 'pip install peewee'.
+- Install pymysql, 'pip install pymysql'.
 
 ### Frontend
 API consumer, GUI, client.
