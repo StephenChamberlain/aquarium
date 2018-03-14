@@ -29,6 +29,23 @@ The schematic for this project is as follows:
 
 ![schematic](Hardware/schematic.png)
 
+This schematic was made with Fritzing http://fritzing.org/home/. I also used
+additional parts from the Adafruit fritzing library at https://github.com/adafruit/Fritzing-Library.
+
+#### Raspberry Pi
+My Raspberry Pi 3 is based on Raspbian GNU/Linux version 9.
+
+#### The Breadboard
+Next to the (half size) breadboard itself, the bill of materials is as follows:
+
+| Part                                          | Notes                        |
+| --------------------------------------------- |:----------------------------:|
+| DS18B20 1-Wire Temperature Sensor Probe Cable |                              | 
+| Adafruit Pi Cobbler                           | Be careful; I bought an old style 26pin cobbler, but for the Raspberry Pi 3 you should get the newer T-shaped 40 pin breakout! I was still able to use the cobbler I bought, by also purchasing a downgrade ribbon cable. |
+| 4.7kΩ Resistor                                |                              |
+| Jumper wires                                  |                              |
+
+For a more detailed list, see [Hardware/schematic_bom.html](Hardware/schematic_bom.html).
 
 ## The Backend
 Database, server, API.
