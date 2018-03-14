@@ -39,23 +39,47 @@ My Raspberry Pi 3 is based on Raspbian GNU/Linux version 9.
 Next to the (half size) breadboard itself, the bill of materials is as follows:
 
 | Part                                          | Notes                        |
-| --------------------------------------------- |:----------------------------:|
+|-----------------------------------------------|------------------------------|
 | DS18B20 1-Wire Temperature Sensor Probe Cable |                              | 
 | Adafruit Pi Cobbler                           | Be careful; I bought an old style 26pin cobbler, but for the Raspberry Pi 3 you should get the newer T-shaped 40 pin breakout! I was still able to use the cobbler I bought, by also purchasing a downgrade ribbon cable. |
 | 4.7kΩ Resistor                                |                              |
-| Jumper wires                                  |                              |
+| 1 pack of jumper wires                        |                              |
 
 For a more detailed list, see [Hardware/schematic_bom.html](Hardware/schematic_bom.html).
 
 ## The Backend
-Database, server, API.
+The backend consists of Python code to handle taking readings from the temperature
+sensor, write it to a database and provide the data to external consumers via a
+REST API.
+
+Setup Python on your pi, if it is not already available. The code in this repository
+assumes version 2.7, but it should work with other versions too.
+
+To setup the necessary Python libraries, run:
 - Install peewee, 'pip install peewee'.
 - Install pymysql, 'pip install pymysql'.
 
+The database behind the backend is MariaDB, which is based on MySQL. The schema 
+is quite simple:
+
+![aquarium-db-model](Backend/aquarium-db-model.png)
+
+Concepts:
+
+- One or more aquarium instances.
+- Occupants of the aquarium can be defined, with an aquarium reference.
+- Sensor readings have a type and measurement unit, along with the reading itself 
+and other data and are linked to an aquarium instance.
+
 ## The Frontend
-API consumer, GUI, client.
+Still to do - API consumer, GUI, client.
 
-# Ideas
+# Ideas & Todo Items
 
+- TODO: setup python script for peewee, etc.
+- TODO: db extension; backend code hardcodes things like aquarium instance, etc.
+- TODO: db - add sensor definition; a sensor should be linked to an aquarium instance.
+- TODO: create backend API
+- TODO: create frontend API consumer, GUI, client.
 - Build process should be able to create DB, deploy necessary artifacts to the 
 Pi.
