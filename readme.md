@@ -47,6 +47,13 @@ Next to the (half size) breadboard itself, the bill of materials is as follows:
 
 For a more detailed list, see [Hardware/schematic_bom.html](Hardware/schematic_bom.html).
 
+A few photos, to give an idea of the implementation below:
+
+![2018-03-14 13.52.10](Hardware/photos/2018-03-14 13.52.10.jpg)
+![2018-03-14 13.52.15](Hardware/photos/2018-03-14 13.52.15.jpg)
+![2018-03-14 13.52.49](Hardware/photos/2018-03-14 13.52.49.jpg)
+![2018-03-14 13.53.03](Hardware/photos/2018-03-14 13.53.03.jpg)
+
 ## The Backend
 The backend consists of Python code to handle taking readings from the temperature
 sensor, write it to a database and provide the data to external consumers via a
