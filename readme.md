@@ -1,26 +1,44 @@
-## Aquarium
+# Aquarium
 A home automation project. 
 
 The goal:
 
-'To take sensor readings from the aquarium using hardware & Raspberry Pi, store
+*'To take sensor readings from the aquarium using hardware & Raspberry Pi, store
 those readings and make them available via an API to a frontend, for example an
-Android or iOS app'.
+Android or iOS app'.*
 
-## Repo Structure (general idea of what goes where...)
+This project is based on Adafruit's excellent temperature sensor tutorial, over
+at https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing?view=all. Go check it out; if you get that far, then the rest of this repository should
+make a lot more sense ;-)
 
-### Hardware
-The low level stuff, circuit information, physical assets.
+# Repo Structure
 
-### Backend
+The repository is organised into several major layers or areas of concern. These
+are:
+
+- Hardware
+- Backend
+- Frontend
+
+These are detailed below.
+
+## The Hardware
+This contains the low level stuff, circuit information, physical assets, etc.
+
+The schematic for this project is as follows:
+
+![schematic](Hardware/schematic.png)
+
+
+## The Backend
 Database, server, API.
 - Install peewee, 'pip install peewee'.
 - Install pymysql, 'pip install pymysql'.
 
-### Frontend
+## The Frontend
 API consumer, GUI, client.
 
-## Ideas
+# Ideas
 
 - Build process should be able to create DB, deploy necessary artifacts to the 
 Pi.
