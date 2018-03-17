@@ -86,7 +86,7 @@ Still to do - API consumer, GUI, client.
 - TODO: setup python script for peewee, etc.
 - TODO: db extension; backend code hardcodes things like aquarium instance, etc.
 - TODO: db - add sensor definition; a sensor should be linked to an aquarium instance.
-- TODO: create backend API
+- TODO: create backend API (https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask)
 - TODO: create frontend API consumer, GUI, client.
 - Build process should be able to create DB, deploy necessary artifacts to the 
 Pi.
