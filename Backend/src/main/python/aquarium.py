@@ -2,6 +2,8 @@ import os
 import glob
 import time
 import datetime
+
+from system import *
 from database import *
 
 os.system('modprobe w1-gpio')
@@ -44,6 +46,8 @@ def store_temperature_in_db(temperature):
         timestamp=datetime.datetime.now())
     
     sensorReading.save()
+        
+# stop_if_already_running() # will kill itself; how to tell if a process is 'this' or other?
     
 print("Starting up")
 while True:

@@ -1,0 +1,2 @@
+Starting up
+Temperature is 24.625 degrees celsius, about to store in DB
