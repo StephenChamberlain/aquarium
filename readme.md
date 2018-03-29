@@ -69,7 +69,7 @@ To setup the necessary Python libraries, run:
 The database behind the backend is MariaDB, which is based on MySQL. The schema 
 is quite simple:
 
-![aquarium-db-model](Backend/aquarium-db-model.png)
+![aquarium-db-model](Backend/src/main/sql/aquarium-db-model.png)
 
 Concepts:
 
