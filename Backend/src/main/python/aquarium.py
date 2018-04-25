@@ -2,9 +2,11 @@ import os
 import glob
 import time
 import datetime
+import thread
 
 from system import *
 from database import *
+from rest_api import *
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -50,6 +52,9 @@ def store_temperature_in_db(temperature):
 # stop_if_already_running() # will kill itself; how to tell if a process is 'this' or other?
     
 print("Starting up")
+
+# Start a new REST thread
+thread.start_new_thread(rest_server, (8080,))
 while True:
-    store_temperature_in_db(read_temperature());
+    store_temperature_in_db(read_temperature())
     time.sleep(30)

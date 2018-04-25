@@ -37,31 +37,11 @@ sys.setdefaultencoding('utf8')
 
 here = os.path.dirname(os.path.realpath(__file__))
 
-records = {'hello'}
-
-def get_records(handler):
-    return records
-
-def get_record(handler):
-    key = urllib.unquote(handler.path[8:])
-    return records[key] if key in records else None
-
 def get_current_temp(handler):
     latestId = SensorReading.select(fn.MAX(SensorReading.id))
     query = (SensorReading.select(SensorReading.reading).where(SensorReading.id == latestId))
     for reading in query:
         return reading.reading
-
-def set_record(handler):
-    key = urllib.unquote(handler.path[8:])
-    payload = handler.get_payload()
-    records[key] = payload
-    return records[key]
-
-def delete_record(handler):
-    key = urllib.unquote(handler.path[8:])
-    del records[key]
-    return True # anything except None shows success
 
 def rest_call_json(url, payload=None, with_payload_method='PUT'):
     'REST call with JSON decoding of the response and JSON payloads'
@@ -92,10 +72,7 @@ class MethodRequest(urllib2.Request):
 class RESTRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         self.routes = {
-            r'^/$': {'file': 'web/index.html', 'media_type': 'text/html'},
-            r'^/records$': {'GET': get_records, 'media_type': 'application/json'},
-            r'^/current_temp': {'GET': get_current_temp, 'media_type': 'application/json'},
-            r'^/record/': {'GET': get_record, 'PUT': set_record, 'DELETE': delete_record, 'media_type': 'application/json'}}
+            r'^/current_temp': {'GET': get_current_temp, 'media_type': 'application/json'}}
         
         return BaseHTTPServer.BaseHTTPRequestHandler.__init__(self, *args, **kwargs)
     
@@ -133,44 +110,23 @@ class RESTRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                     self.send_header('Content-type', route['media_type'])
                 self.end_headers()
             else:                       
-                if 'file' in route:
-                    if method == 'GET':
-                        try:
-                            f = open(os.path.join(here, route['file']))
-                            try:
-                                self.send_response(200)
-                                if 'media_type' in route:
-                                    self.send_header('Content-type', route['media_type'])
-                                self.end_headers()
-                                shutil.copyfileobj(f, self.wfile)
-                            finally:
-                                f.close()
-                        except:
-                            self.send_response(404)
-                            self.end_headers()
-                            self.wfile.write('File not found\n')
-                    else:
-                        self.send_response(405)
+                if method in route:
+                    content = route[method](self)
+                    if content is not None:
+                        self.send_response(200)
+                        if 'media_type' in route:
+                            self.send_header('Content-type', route['media_type'])
                         self.end_headers()
-                        self.wfile.write('Only GET is supported\n')
+                        if method != 'DELETE':
+                            self.wfile.write(json.dumps(content))
+                    else:
+                        self.send_response(404)
+                        self.end_headers()
+                        self.wfile.write('Not found\n')
                 else:
-                    if method in route:
-                        content = route[method](self)
-                        if content is not None:
-                            self.send_response(200)
-                            if 'media_type' in route:
-                                self.send_header('Content-type', route['media_type'])
-                            self.end_headers()
-                            if method != 'DELETE':
-                                self.wfile.write(json.dumps(content))
-                        else:
-                            self.send_response(404)
-                            self.end_headers()
-                            self.wfile.write('Not found\n')
-                    else:
-                        self.send_response(405)
-                        self.end_headers()
-                        self.wfile.write(method + ' is not supported\n')
+                    self.send_response(405)
+                    self.end_headers()
+                    self.wfile.write(method + ' is not supported\n')
                     
     
     def get_route(self):
@@ -189,9 +145,3 @@ def rest_server(port):
         pass
     print('Stopping HTTP server')
     http_server.server_close()
-
-def main(argv):
-    rest_server(8080)
-
-if __name__ == '__main__':
-    main(sys.argv[1:])
