@@ -80,7 +80,8 @@ and other data and are linked to an aquarium instance.
 - A REST endpoint allows consumers to query data.
 
 ## The Frontend
-Still to do - API consumer, GUI, client.
+- Based on Codename One?
+- API consumer, GUI, client.
 
 # Ideas & Todo Items
 

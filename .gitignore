@@ -101,3 +101,4 @@ ENV/
 .mypy_cache/
 Backend/src/main/python/log.txt
 Backend/src/main/python/database.pyc
+/Frontend/AquaApp/nbproject/private/
