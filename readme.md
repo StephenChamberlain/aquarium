@@ -77,6 +77,7 @@ Concepts:
 - Occupants of the aquarium can be defined, with an aquarium reference.
 - Sensor readings have a type and measurement unit, along with the reading itself 
 and other data and are linked to an aquarium instance.
+- A REST endpoint allows consumers to query data.
 
 ## The Frontend
 Still to do - API consumer, GUI, client.
